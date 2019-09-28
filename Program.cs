@@ -21,6 +21,9 @@ namespace RabbitExhibits
                 Worksheet wsExhibitors = wb.Worksheets["Exhibitors"];
                 Worksheet wsDepartment = wb.Worksheets["Department"];
                 Worksheet wsDivision = wb.Worksheets["Division"];
+                Worksheet wsSection = wb.Worksheets["Section"];
+                Worksheet wsClass = wb.Worksheets["Class"];
+
                 Console.WriteLine("Starting Worksheet Update");
                 for (int i = 2; i < 124; i++)
                 {
@@ -33,7 +36,7 @@ namespace RabbitExhibits
                         }
                     }
 
-                    int DeptID = wsRabbits.Cells[i, 4].Value;
+                    double DeptID = wsRabbits.Cells[i, 4].Value;
                     for (int k = 2; k < 12; k++)
                     {
                         if (wsDepartment.Cells[k, 1].Value == DeptID)
@@ -42,16 +45,34 @@ namespace RabbitExhibits
                         }
                     }
 
-                    int DivID = wsRabbits.Cells[i, 5].Value;
+                    double DivID = wsRabbits.Cells[i, 5].Value;
                     for (int l = 2; l < 17; l++)
                     {
                         if (wsDivision.Cells[l, 1].Value == DivID)
                         {
-
+                            wsRabbits.Cells[i, 5].Value = wsDivision.Cells[l, 3].Value;
                         }
                     }
 
-                    Console.WriteLine("On row number " + i.ToString());
+                    double SecID = wsRabbits.Cells[i, 6].Value;
+                    for (int m = 2; m < 120; m++)
+                    {
+                        if (wsSection.Cells[m, 1].Value == SecID)
+                        {
+                            wsRabbits.Cells[i, 6].Value = wsSection.Cells[m, 3].Value;
+                        }
+                    }
+
+                    double ClassID = wsRabbits.Cells[i, 7].Value;
+                    for (int n = 2; n < 705; n++)
+                    {
+                        if (wsClass.Cells[n, 1].Value == ClassID)
+                        {
+                            wsRabbits.Cells[i, 7].Value = wsClass.Cells[n, 6].Value;
+                        }
+                    }
+
+                    Console.WriteLine("Updated row number " + i.ToString());
                 }
                 wb.Save();
                 excel.Quit();
